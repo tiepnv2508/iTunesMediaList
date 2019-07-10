@@ -11,9 +11,31 @@ import UIKit
 
 class MediaListViewController: UITableViewController {
     private let mediaCellReuseId = "MediaCellReuseId"
-    weak var activityIndicator: UIActivityIndicatorView!
     
-    private var currentType = MediaType.appleMusic
+    weak var activityIndicator: UIActivityIndicatorView!
+    private var toolBar = UIToolbar()
+    private var picker  = UIPickerView()
+    
+    var mediaTypes:[(name: String, type: MediaType)] = [
+        ("Apple Music", .appleMusic),
+        ("iTunes Music", .itunesMusic),
+        ("iOS Apps", .iosApps),
+        ("Audio Books", .audiobooks),
+        ("Books", .books),
+        ("TV Shows", .tvShows),
+        ("Movies", .movies),
+        ("iTunesU", .itunesU),
+        ("Podcasts", .podcasts),
+        ("Music Videos", .musicVideos)
+    ]
+    
+    private var tmpType = MediaType.appleMusic
+    private var pickerIndex = 0
+    private var currentType = MediaType.appleMusic {
+        didSet {
+            loadData()
+        }
+    }
     
     private var medias = [Media]() {
         didSet {
@@ -23,6 +45,7 @@ class MediaListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavBar()
         setupUI()
         loadData()
         setupTableView()
@@ -50,6 +73,43 @@ class MediaListViewController: UITableViewController {
         tableView.backgroundColor = .white
         tableView.register(MediaCell.self, forCellReuseIdentifier: mediaCellReuseId)
         tableView.tableFooterView = UIView()
+    }
+    
+    private func setupNavBar() {
+        let rightBarButton = UIBarButtonItem(title: "MediaType", style: .done, target: self, action: #selector(changeMediaType))
+        self.navigationItem.rightBarButtonItem = rightBarButton
+    }
+    
+    @objc func changeMediaType() {
+        createMediaTypePicker()
+        createPickerToolBar()
+    }
+    
+    @objc func onDoneButtonTapped() {
+        toolBar.removeFromSuperview()
+        picker.removeFromSuperview()
+        
+        // update Media Type
+        currentType = tmpType
+    }
+    
+    private func createMediaTypePicker() {
+        picker = UIPickerView.init()
+        picker.delegate = self
+        picker.dataSource = self
+        picker.backgroundColor = UIColor.white
+        picker.autoresizingMask = .flexibleWidth
+        picker.contentMode = .center
+        picker.frame = CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 300)
+        self.view.addSubview(picker)
+        picker.selectRow(pickerIndex, inComponent: 0, animated: true)
+    }
+    
+    private func createPickerToolBar() {
+        toolBar = UIToolbar.init(frame: CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 50))
+        toolBar.barStyle = .blackTranslucent
+        toolBar.items = [UIBarButtonItem.init(title: "Done", style: .done, target: self, action: #selector(onDoneButtonTapped))]
+        self.view.addSubview(toolBar)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -105,5 +165,24 @@ class MediaListViewController: UITableViewController {
                 strongSelf.showError("Oopssssss!!!", message: error.description)
             }
         }
+    }
+}
+
+extension MediaListViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return mediaTypes.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return mediaTypes[row].name
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        tmpType = mediaTypes[row].type
+        pickerIndex = row
     }
 }
