@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		22A10B2122D5B6C9009CB93C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A10B2022D5B6C9009CB93C /* AppDelegate.swift */; };
-		22A10B2322D5B6C9009CB93C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A10B2222D5B6C9009CB93C /* ViewController.swift */; };
-		22A10B2622D5B6C9009CB93C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22A10B2422D5B6C9009CB93C /* Main.storyboard */; };
 		22A10B2822D5B6CA009CB93C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22A10B2722D5B6CA009CB93C /* Assets.xcassets */; };
 		22A10B2B22D5B6CA009CB93C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22A10B2922D5B6CA009CB93C /* LaunchScreen.storyboard */; };
 		22A10B3622D5B6CA009CB93C /* iTunesMediaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A10B3522D5B6CA009CB93C /* iTunesMediaTests.swift */; };
@@ -47,8 +45,6 @@
 /* Begin PBXFileReference section */
 		22A10B1D22D5B6C9009CB93C /* iTunesMedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTunesMedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22A10B2022D5B6C9009CB93C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		22A10B2222D5B6C9009CB93C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		22A10B2522D5B6C9009CB93C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		22A10B2722D5B6CA009CB93C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		22A10B2A22D5B6CA009CB93C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		22A10B2C22D5B6CA009CB93C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -158,8 +154,6 @@
 				22A10B4F22D5B75A009CB93C /* Models */,
 				22A10B4E22D5B74E009CB93C /* Features */,
 				22A10B2022D5B6C9009CB93C /* AppDelegate.swift */,
-				22A10B2222D5B6C9009CB93C /* ViewController.swift */,
-				22A10B2422D5B6C9009CB93C /* Main.storyboard */,
 				22A10B2722D5B6CA009CB93C /* Assets.xcassets */,
 				22A10B2922D5B6CA009CB93C /* LaunchScreen.storyboard */,
 				22A10B2C22D5B6CA009CB93C /* Info.plist */,
@@ -347,7 +341,6 @@
 			files = (
 				22A10B2B22D5B6CA009CB93C /* LaunchScreen.storyboard in Resources */,
 				22A10B2822D5B6CA009CB93C /* Assets.xcassets in Resources */,
-				22A10B2622D5B6C9009CB93C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,7 +446,6 @@
 				22A10B5D22D5B80D009CB93C /* MediaListViewController.swift in Sources */,
 				22A10B5F22D5B81A009CB93C /* MediaCell.swift in Sources */,
 				22A10B6122D5B831009CB93C /* ItunesServices.swift in Sources */,
-				22A10B2322D5B6C9009CB93C /* ViewController.swift in Sources */,
 				22A10B2122D5B6C9009CB93C /* AppDelegate.swift in Sources */,
 				22A10B5622D5B792009CB93C /* URLSession+Util.swift in Sources */,
 				22A10B5A22D5B7EB009CB93C /* Media.swift in Sources */,
@@ -492,14 +484,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		22A10B2422D5B6C9009CB93C /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				22A10B2522D5B6C9009CB93C /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		22A10B2922D5B6CA009CB93C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
