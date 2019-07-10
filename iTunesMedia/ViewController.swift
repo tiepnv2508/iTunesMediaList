@@ -13,8 +13,14 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        ItunesServices.shared.fetchItunesMedia(mediaType: .appleMusic) { (result) in
+            switch result {
+            case .success(let data):
+                print(data)
+            case .failure(let error):
+                print(error.description)
+            }
+        }
     }
-
-
 }
 

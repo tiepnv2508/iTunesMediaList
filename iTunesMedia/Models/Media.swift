@@ -17,3 +17,21 @@ struct Media: Decodable {
         case name, kind, imgUrl = "artworkUrl100"
     }
 }
+
+struct MediaResponse: Decodable {
+    enum RootKeys: String, CodingKey {
+        case feed
+    }
+    
+    enum FeedKeys: String, CodingKey {
+        case results
+    }
+    
+    var results = [Media]()
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: RootKeys.self)
+        let feedContainer = try container.nestedContainer(keyedBy: FeedKeys.self, forKey: .feed)
+        results = try feedContainer.decode([Media].self, forKey: .results)
+    }
+}
