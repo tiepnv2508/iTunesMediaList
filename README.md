@@ -1,5 +1,5 @@
-# iTunesMediaList is a simple iOS application in which a list of Apple iTunes media is displayed in a table view. 
-
+# iTunesMediaList
+This a simple iOS application in which a list of Apple iTunes media is displayed in a table view. 
 Used the link below to get the endpoint for the data to display.
 https://rss.itunes.apple.com/en-us
 
