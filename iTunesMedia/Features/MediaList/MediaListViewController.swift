@@ -11,6 +11,7 @@ import UIKit
 
 class MediaListViewController: UITableViewController {
     private let mediaCellReuseId = "MediaCellReuseId"
+    weak var activityIndicator: UIActivityIndicatorView!
     
     private var currentType = MediaType.appleMusic
     
@@ -29,6 +30,20 @@ class MediaListViewController: UITableViewController {
     
     private func setupUI() {
         self.title = "Itunes Media"
+        
+        //Loading Indicator
+        let activityIndicator = UIActivityIndicatorView(style: .gray)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(activityIndicator)
+        self.activityIndicator = activityIndicator
+        
+        NSLayoutConstraint.activate([
+            self.activityIndicator.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.activityIndicator.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            ])
+        
+        // Configure Refresh Control
+        tableView.refreshControl = UIRefreshControl()
     }
     
     private func setupTableView() {
@@ -54,13 +69,39 @@ class MediaListViewController: UITableViewController {
         return 100
     }
     
+    override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if tableView.refreshControl!.isRefreshing {
+            loadData()
+        }
+    }
+    
+    private func displayLoading() {
+        if !tableView.refreshControl!.isRefreshing {
+            activityIndicator.isHidden = false
+            activityIndicator.startAnimating()
+        }
+    }
+    
+    private func stopLoading() {
+        if activityIndicator.isAnimating {
+            activityIndicator.isHidden = true
+            self.activityIndicator.stopAnimating()
+        }
+        if tableView.refreshControl!.isRefreshing {
+            tableView.refreshControl?.endRefreshing()
+        }
+    }
+    
     private func loadData() {
+        displayLoading()
         ItunesServices.shared.fetchItunesMedia(mediaType: currentType) { [weak self](result) in
             guard let strongSelf = self else { return }
             switch result {
             case .success(let data):
                 strongSelf.medias = data.results
+                strongSelf.stopLoading()
             case .failure(let error):
+                strongSelf.stopLoading()
                 strongSelf.showError("Oopssssss!!!", message: error.description)
             }
         }
