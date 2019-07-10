@@ -16,7 +16,7 @@ class MediaListViewController: UITableViewController {
     private var toolBar = UIToolbar()
     private var picker  = UIPickerView()
     
-    var mediaTypes:[(name: String, type: MediaType)] = [
+    private var mediaTypes:[(name: String, type: MediaType)] = [
         ("Apple Music", .appleMusic),
         ("iTunes Music", .itunesMusic),
         ("iOS Apps", .iosApps),
@@ -51,6 +51,7 @@ class MediaListViewController: UITableViewController {
         setupTableView()
     }
     
+    // MARK: -  Setup UI
     private func setupUI() {
         self.title = "Itunes Media"
         
@@ -80,6 +81,7 @@ class MediaListViewController: UITableViewController {
         self.navigationItem.rightBarButtonItem = rightBarButton
     }
     
+    // MARK: -  Handle Media Type changed
     @objc func changeMediaType() {
         createMediaTypePicker()
         createPickerToolBar()
@@ -93,6 +95,7 @@ class MediaListViewController: UITableViewController {
         currentType = tmpType
     }
     
+    // MARK: -  create Media Type Picer
     private func createMediaTypePicker() {
         picker = UIPickerView.init()
         picker.delegate = self
@@ -112,6 +115,7 @@ class MediaListViewController: UITableViewController {
         self.view.addSubview(toolBar)
     }
     
+    // MARK: -  UITableViewDataSource & Delegate
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return medias.count
     }
@@ -135,6 +139,7 @@ class MediaListViewController: UITableViewController {
         }
     }
     
+    // MARK: -  Config Loading Indicator
     private func displayLoading() {
         if !tableView.refreshControl!.isRefreshing {
             activityIndicator.isHidden = false
@@ -152,6 +157,7 @@ class MediaListViewController: UITableViewController {
         }
     }
     
+    // MARK: -  Load data from Service
     private func loadData() {
         displayLoading()
         ItunesServices.shared.fetchItunesMedia(mediaType: currentType) { [weak self](result) in

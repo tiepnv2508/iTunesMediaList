@@ -12,9 +12,9 @@ import UIKit
 import SDWebImage
 
 class MediaCell: UITableViewCell {
-    let mediaImage = UIImageView()
-    let mediaName = UILabel()
-    let mediaType = UILabel()
+    private let mediaImage = UIImageView()
+    private let mediaName = UILabel()
+    private let mediaType = UILabel()
     
     var media: Media? {
         didSet {
